@@ -22,7 +22,10 @@ pipeline {
                 archiveArtifacts artifacts: '**/*.war', followSymlinks: false
                 
                 //deploy adapters: [tomcat7(credentialsId: 'tomcat7', path: '', url: 'http://localhost:8081/')], contextPath: 'happytrip-new', onFailure: false, war: '**/*.war'
-                if(params.DEPLOY){
+                when{
+                    expression { params.DEPLOY == true }
+                }
+                steps {
                     deploy adapters: [tomcat7(credentialsId: 'tomcat7', path: '', url: 'http://localhost:8081/')], contextPath: 'happytrip-new', onFailure: false, war: '**/*.war'
                 }
         }
