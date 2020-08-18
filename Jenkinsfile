@@ -16,18 +16,21 @@ pipeline {
                 
             }
         }
+        stage('Deploy'){
+            when{
+                    expression { params.DEPLOY == true }
+            }
+            steps {
+                    deploy adapters: [tomcat7(credentialsId: 'tomcat7', path: '', url: 'http://localhost:8081/')], contextPath: 'happytrip-new', onFailure: false, war: '**/*.war'
+            }
+        }
     }
     post {
         always {
                 archiveArtifacts artifacts: '**/*.war', followSymlinks: false
                 
                 //deploy adapters: [tomcat7(credentialsId: 'tomcat7', path: '', url: 'http://localhost:8081/')], contextPath: 'happytrip-new', onFailure: false, war: '**/*.war'
-                when{
-                    expression { params.DEPLOY == true }
-                }
-                steps {
-                    deploy adapters: [tomcat7(credentialsId: 'tomcat7', path: '', url: 'http://localhost:8081/')], contextPath: 'happytrip-new', onFailure: false, war: '**/*.war'
-                }
+                
         }
     }
 }
