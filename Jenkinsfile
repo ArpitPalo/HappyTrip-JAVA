@@ -4,6 +4,7 @@ pipeline {
         stage('Build') {
             tools {
                 jdk 'jdk8'
+                sonar 'Sonar'
             }
             steps {
                 echo "Build Project"
