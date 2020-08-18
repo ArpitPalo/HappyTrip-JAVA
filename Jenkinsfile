@@ -7,6 +7,7 @@ pipeline {
             }
             steps {
                 echo "Build Project"
+                powershell label: '', script: 'mvn package -f happytrip-code\\pom.xml'
             }
         }
     }
