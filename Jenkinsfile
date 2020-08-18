@@ -2,6 +2,7 @@ pipeline {
     agent any
     parameters {
         booleanParam(name: 'DEPLOY', defaultValue: false, description: 'Do you want to deploy')
+        booleanParam(name: 'CHECK', defaultValue: false, description: 'Do you want to deploy')
     }
     stages {
         stage('Build') {
@@ -10,8 +11,13 @@ pipeline {
             }
             steps {
                 echo "Build Project"
-                withSonarQubeEnv('Sonar') {
-                    powershell label: '', script: 'mvn package -f happytrip-code\\pom.xml sonar:sonar'
+                if(params.CHECK){
+                    withSonarQubeEnv('Sonar') {
+                        powershell label: '', script: 'mvn package -f happytrip-code\\pom.xml sonar:sonar'
+                    }
+                }
+                else {
+                    powershell label: '', script: 'mvn package -f happytrip-code\\pom.xml'
                 }
                 
             }
