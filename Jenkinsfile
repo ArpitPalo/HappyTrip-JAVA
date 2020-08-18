@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    parameters {
+        booleanParam(name: 'DEPLOY', defaultValue: false, description: 'Do you want to deploy')
+    }
     stages {
         stage('Build') {
             tools {
@@ -17,7 +20,11 @@ pipeline {
     post {
         always {
                 archiveArtifacts artifacts: '**/*.war', followSymlinks: false
-                deploy adapters: [tomcat7(credentialsId: 'tomcat7', path: '', url: 'http://localhost:8081/')], contextPath: 'happytrip-new', onFailure: false, war: '**/*.war'
+                
+                //deploy adapters: [tomcat7(credentialsId: 'tomcat7', path: '', url: 'http://localhost:8081/')], contextPath: 'happytrip-new', onFailure: false, war: '**/*.war'
+                if(params.DEPLOY){
+                    deploy adapters: [tomcat7(credentialsId: 'tomcat7', path: '', url: 'http://localhost:8081/')], contextPath: 'happytrip-new', onFailure: false, war: '**/*.war'
+                }
         }
     }
 }
