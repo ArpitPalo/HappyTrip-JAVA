@@ -1,8 +1,8 @@
 pipeline {
     agent any
     parameters {
-        booleanParam(name: 'DEPLOY', defaultValue: false, description: 'Do you want to deploy')
-        booleanParam(name: 'CODE_CHECK', defaultValue: false, description: 'Do you want to deploy')
+        booleanParam(name: 'DEPLOY', defaultValue: false, description: 'Do you want to deploy?')
+        booleanParam(name: 'CODE_CHECK', defaultValue: false, description: 'Do you want to perform code quality check?')
     }
     stages {
         stage('Build & Sonar') {
