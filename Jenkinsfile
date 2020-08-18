@@ -11,13 +11,8 @@ pipeline {
             }
             steps {
                 echo "Build Project"
-                if(params.CHECK){
-                    withSonarQubeEnv('Sonar') {
+                withSonarQubeEnv('Sonar') {
                         powershell label: '', script: 'mvn package -f happytrip-code\\pom.xml sonar:sonar'
-                    }
-                }
-                else {
-                    powershell label: '', script: 'mvn package -f happytrip-code\\pom.xml'
                 }
                 
             }
