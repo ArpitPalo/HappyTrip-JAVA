@@ -7,7 +7,7 @@ pipeline {
             }
             steps {
                 echo "Build Project"
-                withSonarQubeEnv {
+                withSonarQubeEnv('Sonar') {
                     powershell label: '', script: 'mvn package -f happytrip-code\\pom.xml sonar:sonar'
                 }
                 
