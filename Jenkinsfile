@@ -49,5 +49,8 @@ pipeline {
                 //deploy adapters: [tomcat7(credentialsId: 'tomcat7', path: '', url: 'http://localhost:8081/')], contextPath: 'happytrip-new', onFailure: false, war: '**/*.war'
                 
         }
+        success {
+            emailext body: 'Jenkins Build successful', subject: 'Jenkins Build', to: 'arpitpalo@gmail.com'
+        }
     }
 }
